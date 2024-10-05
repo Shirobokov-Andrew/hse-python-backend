@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from lecture_2.hw.shop_api.models import Item, ItemInfo, PatchItemInfo, ItemInCart, Cart
+from lecture_2.hw.shop_api.models import Item, ItemInfo, PatchItemInfo
 
 
 def int_id_generator() -> Iterable[int]:
@@ -36,9 +36,9 @@ def get_many_items(
     show_deleted: bool = False,
 ) -> Iterable[Item]:
     if min_price is None:
-        min_price = float('-inf')
+        min_price = float("-inf")
     if max_price is None:
-        max_price = float('inf')
+        max_price = float("inf")
     cur = 0
     for item_id, item_info in items.items():
         if offset <= cur < offset + limit and min_price <= item_info.price <= max_price:
@@ -68,10 +68,10 @@ def put_item(item_id, item_info: ItemInfo) -> Item | None:
 
 def patch_item(item_id: int, item_info: PatchItemInfo) -> Item | str | None:
     if item_id not in items:
-        return 'not found'
+        return "not found"
     else:
         if items[item_id].deleted:
-            return 'deleted'
+            return "deleted"
         if item_info.price is not None:
             items[item_id].price = item_info.price
         if item_info.name is not None:
@@ -83,10 +83,9 @@ def patch_item(item_id: int, item_info: PatchItemInfo) -> Item | str | None:
 def delete_item(item_id: int) -> str | None:
     if item_id in items:
         if items[item_id].deleted:
-            return 'already deleted'
+            return "already deleted"
         else:
             items[item_id].deleted = True
-            return 'deleted'
+            return "deleted"
     else:
-        return 'not found'
-
+        return "not found"
