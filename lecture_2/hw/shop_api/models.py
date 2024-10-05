@@ -26,6 +26,7 @@ class ItemInCart:
     quantity: int
     available: bool
 
+
 @dataclass(slots=True)
 class ItemInCartForResponse:
     id: int
