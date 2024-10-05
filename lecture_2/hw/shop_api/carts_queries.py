@@ -79,7 +79,6 @@ def get_many_carts(
         min_quantity = -1
     if max_quantity is None:
         max_quantity = float("inf")
-
     cur = 0
     for cart_id, cart in carts.items():
         true_cart = get_cart_by_id(cart_id)
