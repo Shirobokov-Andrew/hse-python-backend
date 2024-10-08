@@ -1,7 +1,7 @@
 from typing import Iterable
 
-from lecture_2.hw.shop_api.models import Item, ItemInfo, PatchItemInfo, ItemInCart, Cart
 from lecture_2.hw.shop_api.items_queries import get_item_by_id, items
+from lecture_2.hw.shop_api.models import Item, ItemInCart, Cart
 
 
 def int_id_generator() -> Iterable[int]:
@@ -71,27 +71,14 @@ def get_many_carts(
     min_quantity: int | None = None,
     max_quantity: int | None = None,
 ) -> Iterable[Cart]:
-    if min_price is None:
-        min_price = float("-inf")
-    if max_price is None:
-        max_price = float("inf")
-    if min_quantity is None:
-        min_quantity = -1
-    if max_quantity is None:
-        max_quantity = float("inf")
 
-    cur = 0
-    for cart_id, cart in carts.items():
-        true_cart = get_cart_by_id(cart_id)
-        if offset <= cur < offset + limit and min_price <= true_cart.price <= max_price:
-            cart_for_response = Cart(id=cart_id, items=dict[int, ItemInCart](), price=0)
-            cart_quant = 0
-            for item_id, item in cart.items.items():
-                cart_quant += item.quantity
-                cart_for_response.items[item_id] = ItemInCart(
-                    name=item.name, quantity=item.quantity, available=item.available
-                )
-                cart_for_response.price += get_item_by_id(item_id).info.price
-            if cart_quant > max_quantity:
-                break
-            yield cart_for_response
+    curr = 0
+    for cart in carts.values():
+        if offset <= curr < offset + limit:
+            if min_price is None or cart.price >= min_price:
+                if max_price is None or cart.price <= max_price:
+                    total_quantity = sum(item.quantity for item in cart.items.values())
+                    if min_quantity is None or total_quantity >= min_quantity:
+                        if max_quantity is None or total_quantity <= max_quantity:
+                            yield cart
+        curr += 1

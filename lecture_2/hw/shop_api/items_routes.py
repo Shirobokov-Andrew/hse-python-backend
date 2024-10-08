@@ -4,15 +4,13 @@ from typing import Annotated
 from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import NonNegativeInt, PositiveInt, NonNegativeFloat
 
+import lecture_2.hw.shop_api.items_queries as queries
 from lecture_2.hw.shop_api.contracts import (
     ItemRequest,
     ItemResponse,
     PatchItemRequest,
     PutItemRequest,
 )
-from lecture_2.hw.shop_api.models import ItemInfo, Item, PatchItemInfo, ItemInCart, Cart
-import lecture_2.hw.shop_api.items_queries as queries
-
 
 router = APIRouter(prefix="/item")
 
