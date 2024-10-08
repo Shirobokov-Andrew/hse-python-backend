@@ -1,7 +1,7 @@
 from typing import Iterable
 
-from lecture_2.hw.shop_api.items_queries import get_item_by_id, items
-from lecture_2.hw.shop_api.models import Item, ItemInCart, Cart
+from items_queries import get_item_by_id, items
+from models import Item, ItemInCart, Cart
 
 
 def int_id_generator() -> Iterable[int]:
