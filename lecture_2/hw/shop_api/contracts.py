@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict
 
-from lecture_2.hw.shop_api.models import (
+from models import (
     Item,
     ItemInfo,
     PatchItemInfo,

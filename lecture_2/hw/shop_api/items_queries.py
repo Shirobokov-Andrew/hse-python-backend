@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from lecture_2.hw.shop_api.models import Item, ItemInfo, PatchItemInfo
+from models import Item, ItemInfo, PatchItemInfo
 
 
 def int_id_generator() -> Iterable[int]:

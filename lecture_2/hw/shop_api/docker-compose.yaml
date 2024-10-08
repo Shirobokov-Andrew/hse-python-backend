@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  app:
+    image: fastapi_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+    restart: always
+    ports:
+      - 8080:8080
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./settings/prometheus/:/etc/prometheus/prometheus.yaml
+    ports:
+      - 9090:9090
+    restart: always
